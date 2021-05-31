@@ -1,0 +1,19 @@
+pkgVer <- function(pkg) {
+    if (!exists("meta") || is.null(meta)) meta <- packageDescription(pkg)
+    ver <- meta$Version
+    paste0('https://github.com/mdozmorov/allowranges/', pkg, ' - R package version ', ver)
+}
+
+c(
+
+    bibentry(bibtype="manual",
+        title = "allowranges",
+        author = personList(
+            as.person("Mikhail G. Dozmorov")
+        ),
+        year = format(Sys.Date(), "%Y"),
+        url = "https://github.com/mdozmorov/allowranges",
+        note = pkgVer('allowranges'),
+        doi = ''
+    )
+)
