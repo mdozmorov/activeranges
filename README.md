@@ -1,9 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Allow ranges
+# Active ranges
 
-Genomic ranges of allow (aka DNAse I hypersensitive sites, open
+Genomic ranges of Active (aka DNAse I hypersensitive sites, open
 chromatin) regions that are likely biologically active. For multiple
 cell- and tissue types, human only.
 
@@ -15,11 +15,11 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 
 # Basics
 
-*[allowranges](https://bioconductor.org/packages/3.13/allowranges)* is
+*[activeranges](https://bioconductor.org/packages/3.13/activeranges)* is
 an experimental data package, to be submitted as an AnnotatiohHub
 Bioconductor package.
 
-*[allowranges](https://bioconductor.org/packages/3.13/allowranges)*
+*[activeranges](https://bioconductor.org/packages/3.13/activeranges)*
 contains genomic coordinates of DNAse I hypersensitive sites for
 multiple call- and tissue types. See Meuleman, Wouter, Alexander
 Muratov, Eric Rynes, Jessica Halow, Kristen Lee, Daniel Bates, Morgan
@@ -39,14 +39,14 @@ Cross-reference package:
 Naming convention: `<genome assembly>.<lab>.<original file name>`, e.g.,
 `hg38.Meuleman.Cancer_epithelial`.
 
-*[allowranges](https://bioconductor.org/packages/3.13/allowranges)*
+*[activeranges](https://bioconductor.org/packages/3.13/activeranges)*
 package currently contains 16 Rds objects.
 
 Download the full data from the [Google Drive
 folder](https://drive.google.com/drive/folders/14yHnVLZ2XDEOkVufgAyjKJ66Sjmt25eG?usp=sharing)
 
 See [inst/scripts/make-data.R](inst/scripts/make-data.R) how to create
-the allowranges GRanges objects.
+the activeranges GRanges objects.
 
 | Object                                   | Number of regions | Assembly | Lab      | Number of columns | Source                                        | Type                    | Description                                | Direct link                                                                                                                  |
 |------------------------------------------|-------------------|----------|----------|-------------------|-----------------------------------------------|-------------------------|--------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
@@ -67,32 +67,32 @@ the allowranges GRanges objects.
 | hg38.Meuleman.Tissue\_invariant.rds      | 157670            | hg38     | Meuleman | 10                | <https://www.meuleman.org/research/dhsindex/> | Tissue invariant        | DNAse I regions in Tissue invariant        | [hg38.Meuleman.Tissue\_invariant.rds](https://drive.google.com/uc?export=download&id=1QGOwxdQlTykXSYg3e6G1Iq__lvG9v6bP)      |
 | hg38.Meuleman.Vascular\_endothelial.rds  | 84826             | hg38     | Meuleman | 10                | <https://www.meuleman.org/research/dhsindex/> | Vascular / endothelial  | DNAse I regions in Vascular / endothelial  | [hg38.Meuleman.Vascular\_endothelial.rds](https://drive.google.com/uc?export=download&id=1wLP8teb9Yf3u2MwvFGnKXFjeAxWzZacE)  |
 
-## Install `allowranges`
+## Install `activeranges`
 
-<!--`R` is an open-source statistical environment which can be easily modified to enhance its functionality via packages. *[allowranges](https://bioconductor.org/packages/3.13/allowranges)* is a `R` package available via the [Bioconductor](http://bioconductor.org) repository for packages. `R` can be installed on any operating system from [CRAN](https://cran.r-project.org/) after which you can install *[allowranges](https://bioconductor.org/packages/3.13/allowranges)* by using the following commands in your `R` session:-->
+<!--`R` is an open-source statistical environment which can be easily modified to enhance its functionality via packages. *[activeranges](https://bioconductor.org/packages/3.13/activeranges)* is a `R` package available via the [Bioconductor](http://bioconductor.org) repository for packages. `R` can be installed on any operating system from [CRAN](https://cran.r-project.org/) after which you can install *[activeranges](https://bioconductor.org/packages/3.13/activeranges)* by using the following commands in your `R` session:-->
 
 ``` r
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
     install.packages("BiocManager")
 }
 
-BiocManager::install("mdozmorov/allowranges")
+BiocManager::install("mdozmorov/activeranges")
 
 ## Check that you have a valid Bioconductor installation
 # BiocManager::valid()
 ```
 
-## Use allowranges
+## Use activeranges
 
 ``` r
-# hg38 allowranges coordinates
+# hg38 activeranges coordinates
 download.file(url = "https://drive.google.com/uc?export=download&id=1CdaSUr45IbmDicegz0TPITcOO41e2MaT", destfile = "hg38.Meuleman.Cancer_epithelial.rds")
 
-allowGR.hg38.Cancer <- readRDS(file = "hg38.Meuleman.Cancer_epithelial.rds")
-allowGR.hg38.Cancer
+ActiveGR.hg38.Cancer <- readRDS(file = "hg38.Meuleman.Cancer_epithelial.rds")
+ActiveGR.hg38.Cancer
 ```
 
-    > allowGR.hg38.Cancer
+    > ActiveGR.hg38.Cancer
     GRanges object with 188489 ranges and 7 metadata columns:
                seqnames            ranges strand |  identifier mean_signal numsamples    summit core_start  core_end           component
                   <Rle>         <IRanges>  <Rle> | <character>   <numeric>  <numeric> <numeric>  <numeric> <numeric>         <character>
@@ -113,69 +113,69 @@ allowGR.hg38.Cancer
 We can investigate the width of GRanges.
 
 ``` r
-summary(width(allowGR.hg38.Cancer))
+summary(width(ActiveGR.hg38.Cancer))
 ```
 
-    > summary(width(allowGR.hg38.Cancer))
+    > summary(width(ActiveGR.hg38.Cancer))
        Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
        21.0   141.0   181.0   182.5   221.0  3516.0 
 
 Visualizing on a log2 scale may be more informative.
 
 ``` r
-mtx_to_plot <- data.frame(Width = c(width(allowGR.hg38.Cancer),
-                                    log2(width(allowGR.hg38.Cancer))),
-                          Scale = c(rep("bp", length(allowGR.hg38.Cancer)), 
-                                    rep("log2 bp", length(allowGR.hg38.Cancer))))
+mtx_to_plot <- data.frame(Width = c(width(ActiveGR.hg38.Cancer),
+                                    log2(width(ActiveGR.hg38.Cancer))),
+                          Scale = c(rep("bp", length(ActiveGR.hg38.Cancer)), 
+                                    rep("log2 bp", length(ActiveGR.hg38.Cancer))))
 mtx_to_plot$Scale <- factor(mtx_to_plot$Scale)
 
 ggplot(mtx_to_plot, aes(x = Width, fill = Scale)) +
   geom_density() +
   facet_wrap(~ Scale, scales = "free") +
   theme_bw() + theme(legend.position = "none")
-ggsave("allowranges_hg38_Meuleman_width.png", width = 5, height = 2)
+ggsave("activeranges_hg38_Meuleman_width.png", width = 5, height = 2)
 ```
 
-<img src="man/figures/allowranges_hg38_Meuleman_width.png" width="100%" />
+<img src="man/figures/activeranges_hg38_Meuleman_width.png" width="100%" />
 
 We can load other cell- and tissue type-specific regions for the hg38
 genome assembly. See the “Direct link” column in the table above.
 
 The number of DNAse I sites per cell- and tissue type.
 
-<img src="man/figures/allowranges_hg38_Meuleman_metadata.png" width="100%" />
+<img src="man/figures/activeranges_hg38_Meuleman_metadata.png" width="100%" />
 
 ## Citation
 
-Below is the citation output from using `citation('allowranges')` in R.
+Below is the citation output from using `citation('activeranges')` in R.
 Please run this yourself to check for any updates on how to cite
-**allowranges**.
+**activeranges**.
 
 ``` r
-print(citation("allowranges"), bibtex = TRUE)
+print(citation("activeranges"), bibtex = TRUE)
 #> 
-#> Dozmorov MG (2021). _allowranges_.
-#> https://github.com/mdozmorov/allowranges/allowranges - R package
-#> version 0.99.0, <URL: https://github.com/mdozmorov/allowranges>.
+#> Dozmorov MG (2021). _activeranges_.
+#> https://github.com/mdozmorov/activeranges/activeranges - R package
+#> version 0.99.0, <URL: https://github.com/mdozmorov/activeranges>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Manual{,
-#>     title = {allowranges},
+#>     title = {activeranges},
 #>     author = {Mikhail G. Dozmorov},
 #>     year = {2021},
-#>     url = {https://github.com/mdozmorov/allowranges},
-#>     note = {https://github.com/mdozmorov/allowranges/allowranges - R package version 0.99.0},
+#>     url = {https://github.com/mdozmorov/activeranges},
+#>     note = {https://github.com/mdozmorov/activeranges/activeranges - R package version 0.99.0},
 #>   }
 ```
 
-Please note that the `allowranges` was only made possible thanks to many
-other R and bioinformatics software authors, which are cited either in
-the vignettes and/or the paper(s) describing this package.
+Please note that the `activeranges` was only made possible thanks to
+many other R and bioinformatics software authors, which are cited either
+in the vignettes and/or the paper(s) describing this package.
 
 ## Code of Conduct
 
-Please note that the `allowranges` project is released with a
+Please note that the `activeranges` project is released with a
 [Contributor Code of
 Conduct](http://bioconductor.org/about/code-of-conduct/). By
 contributing to this project, you agree to abide by its terms.
@@ -193,7 +193,7 @@ contributing to this project, you agree to abide by its terms.
 -   Code coverage assessment is possible thanks to
     [codecov](https://codecov.io/gh) and
     *[covr](https://CRAN.R-project.org/package=covr)*.
--   The [documentation website](http://mdozmorov.github.io/allowranges)
+-   The [documentation website](http://mdozmorov.github.io/activeranges)
     is automatically updated thanks to
     *[pkgdown](https://CRAN.R-project.org/package=pkgdown)*.
 -   The code is styled automatically thanks to
@@ -209,6 +209,7 @@ This package was developed using
 
 ## Code of Conduct
 
-Please note that the allowranges project is released with a [Contributor
-Code of Conduct](http://bioconductor.org/about/code-of-conduct/). By
+Please note that the activeranges project is released with a
+[Contributor Code of
+Conduct](http://bioconductor.org/about/code-of-conduct/). By
 contributing to this project, you agree to abide by its terms.

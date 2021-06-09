@@ -1,5 +1,5 @@
 ---
-title: "Introduction to allowranges"
+title: "Introduction to activeranges"
 author: 
   - name: Mikhail Dozmorov
     affiliation:
@@ -13,9 +13,9 @@ output:
     toc_depth: 2
     code_folding: show
 date: "`r doc_date()`"
-package: "`r pkg_ver('allowranges')`"
+package: "`r pkg_ver('activeranges')`"
 vignette: >
-  %\VignetteIndexEntry{Introduction to allowranges}
+  %\VignetteIndexEntry{Introduction to activeranges}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}  
 ---
@@ -45,16 +45,16 @@ bib <- c(
     rmarkdown = citation("rmarkdown")[1],
     sessioninfo = citation("sessioninfo")[1],
     # testthat = citation("testthat")[1],
-    allowranges = citation("allowranges")[1]
+    activeranges = citation("activeranges")[1]
 )
 ```
 
 # Basics
 
-`r BiocStyle::Biocpkg("allowranges")` is  an experimental data package, to be submitted 
+`r BiocStyle::Biocpkg("activeranges")` is  an experimental data package, to be submitted 
 as an AnnotatiohHub Bioconductor package.
 
-`r BiocStyle::Biocpkg("allowranges")` contains genomic coordinates of DNAse I hypersensitive sites for multiple call- and tissue types. See Meuleman, Wouter, Alexander Muratov, Eric Rynes, Jessica Halow, Kristen Lee, Daniel Bates, Morgan Diegel, et al. “[Index and Biological Spectrum of Human DNase I Hypersensitive Sites](https://doi.org/10.1038/s41586-020-2559-3).” Nature, July 29, 2020. Data source: https://www.meuleman.org/research/dhsindex/
+`r BiocStyle::Biocpkg("activeranges")` contains genomic coordinates of DNAse I hypersensitive sites for multiple call- and tissue types. See Meuleman, Wouter, Alexander Muratov, Eric Rynes, Jessica Halow, Kristen Lee, Daniel Bates, Morgan Diegel, et al. “[Index and Biological Spectrum of Human DNase I Hypersensitive Sites](https://doi.org/10.1038/s41586-020-2559-3).” Nature, July 29, 2020. Data source: https://www.meuleman.org/research/dhsindex/
  
 BED-like files of cell- and tissue type-specific DNAse I hypersensitive regions 
 are available on the [Annotated regulatory Index](https://www.meuleman.org/research/dhsindex/)
@@ -66,11 +66,11 @@ Cross-reference package: [denyranges](https://github.com/mdozmorov/denyranges)
 Naming convention: `<genome assembly>.<lab>.<original file name>`, e.g.,
 `hg38.Meuleman.Cancer_epithelial`.
 
-`r BiocStyle::Biocpkg("allowranges")` package currently contains 16 Rds objects. 
+`r BiocStyle::Biocpkg("activeranges")` package currently contains 16 Rds objects. 
 
 Download the full data from the [Google Drive folder](https://drive.google.com/drive/folders/14yHnVLZ2XDEOkVufgAyjKJ66Sjmt25eG?usp=sharing)
 
-See [../inst/scripts/make-data.R](inst/scripts/make-data.R) how to create the allowranges 
+See [../inst/scripts/make-data.R](inst/scripts/make-data.R) how to create the activeranges 
 GRanges objects.
 
 | Object                                  | Number of regions | Assembly | Lab      | Number of columns | Source                                      | Type                    | Description                                | Direct link                                                                                                                 |
@@ -92,23 +92,23 @@ GRanges objects.
 | hg38.Meuleman.Tissue_invariant.rds      | 157670            | hg38     | Meuleman | 10                | https://www.meuleman.org/research/dhsindex/ | Tissue invariant        | DNAse I regions in Tissue invariant        | [hg38.Meuleman.Tissue_invariant.rds](https://drive.google.com/uc?export=download&id=1QGOwxdQlTykXSYg3e6G1Iq__lvG9v6bP)      |
 | hg38.Meuleman.Vascular_endothelial.rds  | 84826             | hg38     | Meuleman | 10                | https://www.meuleman.org/research/dhsindex/ | Vascular / endothelial  | DNAse I regions in Vascular / endothelial  | [hg38.Meuleman.Vascular_endothelial.rds](https://drive.google.com/uc?export=download&id=1wLP8teb9Yf3u2MwvFGnKXFjeAxWzZacE)  |
 
-## Install `allowranges`
+## Install `activeranges`
 
 ```{r "install", eval = FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
     install.packages("BiocManager")
 }
 
-BiocManager::install("mdozmorov/allowranges")
+BiocManager::install("mdozmorov/activeranges")
 
 ## Check that you have a valid Bioconductor installation
 # BiocManager::valid()
 ```
 
-## Use allowranges
+## Use activeranges
 
 ```{r eval = FALSE}
-# hg38 allowranges coordinates
+# hg38 activeranges coordinates
 download.file(url = "https://drive.google.com/uc?export=download&id=1CdaSUr45IbmDicegz0TPITcOO41e2MaT", destfile = "hg38.Meuleman.Cancer_epithelial.rds")
 
 allowGR.hg38.Cancer <- readRDS(file = "hg38.Meuleman.Cancer_epithelial.rds")
@@ -159,11 +159,11 @@ ggplot(mtx_to_plot, aes(x = Width, fill = Scale)) +
   geom_density() +
   facet_wrap(~ Scale, scales = "free") +
   theme_bw() + theme(legend.position = "none")
-ggsave("allowranges_hg38_Meuleman_width.png", width = 5, height = 2)
+ggsave("activeranges_hg38_Meuleman_width.png", width = 5, height = 2)
 ```
 
 ```{r echo=FALSE}
-knitr::include_graphics('../man/figures/allowranges_hg38_Meuleman_width.png')
+knitr::include_graphics('../man/figures/activeranges_hg38_Meuleman_width.png')
 ```
 
 We can load other cell- and tissue type-specific regions for the hg38 
@@ -172,7 +172,7 @@ genome assembly. See the "Direct link" column in the table above.
 The number of DNAse I sites per cell- and tissue type.
 
 ```{r echo=FALSE}
-knitr::include_graphics('../man/figures/allowranges_hg38_Meuleman_metadata.png')
+knitr::include_graphics('../man/figures/activeranges_hg38_Meuleman_metadata.png')
 ```
 
 
